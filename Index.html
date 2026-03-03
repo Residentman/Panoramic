@@ -1,31 +1,43 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
-<meta charset="utf-8">
-<title>Panorama</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum/build/pannellum.css"/>
-<script src="https://cdn.jsdelivr.net/npm/pannellum/build/pannellum.js"></script>
-<style>
-html, body {
-  margin: 0;
-  height: 100%;
-}
-#panorama {
-  width: 100%;
-  height: 100%;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>360 Панорамный просмотр</title>
+    <style>
+        body, html { margin: 0; padding: 0; height: 100%; width: 100%; overflow: hidden; }
+        #viewer { width: 100%; height: 100%; }
+        /* Адаптив под мобильные */
+        @media (max-width: 768px) {
+            body { font-family: sans-serif; }
+        }
+    </style>
+    <!-- Подключаем библиотеку Pannellum -->
+    <script src="https://cdn.jsdelivr.net/gh/pannellum/pannellum@3.3.0/js/Pannellum.js"></script>
 </head>
 <body>
 
-<div id="panorama"></div>
+<div id="viewer"></div>
 
 <script>
-pannellum.viewer('panorama', {
-  "type": "equirectangular",
-  "panorama": "panorama.jpg",
-  "autoLoad": true
-});
+    var viewer = new Pannellum.viewer('viewer', {
+        // ЗАМЕНИТЕ ЭТУ ССЫЛКУ НА ВАШЕ КАРТИНКУ
+        'panorama': 'your-image.jpg', 
+        'autoRotate': false,
+        'pitchAutoRotate': true, // Разрешаем наклон камеры вверх/вниз
+        'autoRotateSpeed': 0,
+        'yawField': 100, // Область обзора по горизонтали (в % от ширины)
+        'pitchField': 100, // Область обзора по вертикали
+        'yawAutocenter': true,
+        'pitchAutocenter': true,
+        'compass': false, // Компас (можно включить)
+        'controls': false // Управление (стрелочки) - false, чтобы было чисто, true, чтобы было удобнее
+    });
+    
+    // ЗАМЕНИТЕ 'your-image.jpg' НА реальную ссылку к файлу
+    // Например: 'https://mysite.com/pano.jpg' или 'panorama.jpg'
+    
+    /* Если используете локальный файл, положите его в ту же папку, что и этот html файл */
 </script>
 
 </body>
