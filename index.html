@@ -3,43 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>360 Панорамный просмотр</title>
+    <title>Моя Панорама 360</title>
     <style>
-        body, html { margin: 0; padding: 0; height: 100%; width: 100%; overflow: hidden; }
-        #viewer { width: 100%; height: 100%; }
-        /* Адаптив под мобильные */
-        @media (max-width: 768px) {
-            body { font-family: sans-serif; }
+        /* Кнопка "Назад" на мобилках может мешать, убираем скролл */
+        body, html { 
+            height: 100%; 
+            margin: 0; 
+            overflow: hidden; /* Убираем полосы прокрутки */
+            font-family: Arial, sans-serif;
+        }
+        #viewer { 
+            width: 100%; 
+            height: 100%; /* Занимает весь экран */
+            background: #000;
         }
     </style>
-    <!-- Подключаем библиотеку Pannellum -->
+    <!-- Подключаем библиотеку Pannellum (CDN) -->
     <script src="https://cdn.jsdelivr.net/gh/pannellum/pannellum@3.3.0/js/Pannellum.js"></script>
 </head>
 <body>
 
+<!-- Контейнер, куда будет загружена панорама -->
 <div id="viewer"></div>
 
 <script>
+    // Создаем объект Pannellum
     var viewer = new Pannellum.viewer('viewer', {
-        // ЗАМЕНИТЕ ЭТУ ССЫЛКУ НА ВАШЕ КАРТИНКУ
-        'panorama': 'your-image.jpg', 
-        'autoRotate': false,
-        'pitchAutoRotate': true, // Разрешаем наклон камеры вверх/вниз
-        'autoRotateSpeed': 0,
-        'yawField': 100, // Область обзора по горизонтали (в % от ширины)
-        'pitchField': 100, // Область обзора по вертикали
-        'yawAutocenter': true,
-        'pitchAutocenter': true,
-        'compass': false, // Компас (можно включить)
-        'controls': false // Управление (стрелочки) - false, чтобы было чисто, true, чтобы было удобнее
+        
+        // 1. Путь к вашей картинке. 
+        // Если файл лежит рядом: 'panorama.jpg'
+        // Если ссылка на сервер: 'https://site.com/panorama.jpg'
+        'panorama': 'panorama.jpg', 
+        
+        // 2. Начальная позиция (наклон камеры)
+        'autoCenter': true, // Центрирует точку обзора (если нет)
+        
+        // 3. Автоматический поворот экрана (для навигации на телефоне)
+        'touchRotate': true, // Повернуть пальцем можно? (true)
+        'touchRotatePitch': true, // Наклон пальцем можно? (true)
+        
+        // 4. Управление
+        'controls': false, // Кнопки управления (встроенные) включить? Обычно false для чистоты
+        'compass': false, // Компас на экране (показать стрелку)
+        'autoRotate': false, // Автоматический крутится камера? (false)
+        
+        // 5. Ограничение угла обзора
+        'yawField': 100, // Сколько градусов видно по горизонтали (-100..100)
+        'pitchField': 100, // Сколько градусов видно по вертикали (-100..100)
     });
-    
-    // ЗАМЕНИТЕ 'your-image.jpg' НА реальную ссылку к файлу
-    // Например: 'https://mysite.com/pano.jpg' или 'panorama.jpg'
-    
-    /* Если используете локальный файл, положите его в ту же папку, что и этот html файл */
 </script>
 
 </body>
 </html>
-
