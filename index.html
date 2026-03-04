@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Моя панорама</title>
+
+    <!-- CDN‑версия Pannellum (необязательно, можно скачать локально) -->
+    <script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
+    <link  href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css" rel="stylesheet"/>
+
+    <!-- Немного стилей, чтобы панорама занимала весь экран -->
+    <style>
+        html, body { height:100%; margin:0; }
+        #panorama { width: 100%; height: 100%; }
+    </style>
+</head>
+<body>
+<div id="panorama"></div>
+
+<script>
+    pannellum.viewer('panorama', {
+        "type": "equirectangular",
+        "panorama": "panorama.jpg",   // ← здесь путь к файлу
+        "autoLoad": true,
+        "hotSpots": [
+            /* Пример: <a href="https://example.com" target="_blank"> */
+            {
+                "pitch": 10,
+                "yaw": 30,
+                "type": "info",
+                "text": "Нажми меня!"
+            }
+        ]
+    });
+</script>
+</body>
+</html>
