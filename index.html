@@ -4,7 +4,6 @@
 <meta charset="utf-8">
 <title>Панорамы с переходом</title>
 
-<!-- CDN‑версия Pannellum (можно скачать локально) -->
 <script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css">
 
@@ -18,58 +17,34 @@
 <div id="panorama"></div>
 
 <script>
-/* ----------------------------------------------
-   1️⃣ Конфигурация двух сцен
----------------------------------------------- */
 const scenes = {
   "scene-1": {
     title: "Панорама №1",
     type: "equirectangular",
-    panorama: "panorama1.jpg",        // путь к первой панораме
+    panorama: "panorama1.jpg",
     autoLoad: true,
     hotSpots: [
-      {
-        pitch: 10,          // вертикальное положение (от -90 до +90)
-        yaw:   30,          // горизонтальное положение (от -180 до +180)
-        type: "info",       // можно использовать "scene" для перехода
-        text: "Перейти к панораме №2",
-        sceneId: "scene-2"  // ID сцены, на которую будем переходить
-      }
+      { pitch: 10, yaw: 30, type: "info", text: "Перейти к панораме №2", sceneId: "scene-2" }
     ]
   },
-
   "scene-2": {
     title: "Панорама №2",
     type: "equirectangular",
-    panorama: "panorama2.jpg",        // путь ко второй панораме
-    autoLoad: false,                  // загружаем только при переходе
+    panorama: "panorama2.jpg",
+    autoLoad: false,
     hotSpots: [
-      {
-        pitch: -5,
-        yaw:   150,
-        type: "info",
-        text: "Вернуться к панораме №1",
-        sceneId: "scene-1"
-      }
+      { pitch: -5, yaw: 150, type: "info", text: "Вернуться к панораме №1", sceneId: "scene-1" }
     ]
   }
 };
 
-/* ----------------------------------------------
-   2️⃣ Инициализация Pannellum
----------------------------------------------- */
 const viewer = pannellum.viewer('panorama', {
-  default: { firstScene: 'scene-1' }, // начальная сцена
-  scenes: scenes
+  default: { firstScene: 'scene-1' },
+  scenes
 });
 
-/* ----------------------------------------------
-   3️⃣ Обработчик перехода между сценами
----------------------------------------------- */
 viewer.on('hotSpotClick', function (e, id, args) {
-  if (args && args.sceneId) {            // если в hotspot указан sceneId
-    viewer.loadScene(args.sceneId);      // переключаемся на нужную панораму
-  }
+  if (args && args.sceneId) viewer.loadScene(args.sceneId);
 });
 </script>
 </body>
